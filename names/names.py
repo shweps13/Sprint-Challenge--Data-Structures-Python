@@ -26,11 +26,35 @@ f = open('names_2.txt', 'r')
 names_2 = f.read().split("\n")  # List containing 10000 names
 f.close()
 
-duplicates = []
-for name_1 in names_1:
-    for name_2 in names_2:
-        if name_1 == name_2:
-            duplicates.append(name_1)
+# duplicates = []
+# for name_1 in names_1:
+#     for name_2 in names_2:
+#         if name_1 == name_2:
+#             duplicates.append(name_1)
+
+names_1s = quicksort_out_of_place(names_1)
+names_2s = quicksort_out_of_place(names_2)
+
+print(names_1[1])
+print(names_2[2])
+print(names_1[1] < names_2[2])
+
+def dup_search(list1, list2):
+    i = j = 0
+    duplicates = []
+
+    while i < len(list1) and j < len(list2):
+        if list1[i] > list2[j]:
+            j += 1
+        elif list1[i] < list2[j]:
+            i += 1
+        elif list1[i] == list2[j]:
+            duplicates.append(list2[j])
+            i += 1
+            j += 1
+    return duplicates
+
+duplicates = dup_search(names_1s, names_2s)
 
 end_time = time.time()
 print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
